@@ -5,6 +5,11 @@ pipeline {
 
     } // This specifies that the pipeline can run on any available agent
 
+    environment {
+        JENKINS_API_TOKEN = credentialsId 'jenkins_token'
+
+
+    }
 
     tools {
         maven 'Maven3'
@@ -33,39 +38,6 @@ pipeline {
                 // sh 'npm run build'
             }
         }
-
-        stage('Test') {
-            steps {
-                // Run test commands
-                // For a Java project using Maven:
-                // sh 'mvn test'
-                
-                // For a Node.js project:
-                // sh 'npm test'
-            }
-
-            post {
-                // Define actions to take based on the outcome of the Test stage
-                always {
-                    // Actions to always perform after this stage
-                }
-                success {
-                    // Actions to perform if this stage succeeds
-                }
-                failure {
-                    // Actions to perform if this stage fails
-                    // For example, sending an email notification
-                }
-            }
-        }
-
-        // Additional stages like 'Deploy' can be defined here
     }
-
-    post {
-        // Define actions to take based on the outcome of the entire Pipeline
-        always {
-            // Actions to always perform after the Pipeline finishes
-        }
-        success {
-            // Actions to perform if the
+}
+    
