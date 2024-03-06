@@ -1,0 +1,71 @@
+pipeline {
+    agent {
+        lable "jenkins-agent"
+
+
+    } // This specifies that the pipeline can run on any available agent
+
+
+    tools {
+        maven 'Maven3'
+        jdk 'Java17'
+
+      
+    }
+
+    stages {
+        stage('CleanWorkSpace') {
+            steps {
+                // clean work space
+                cleanWs()
+            }
+        }
+
+        stage('Check out SCM') {
+            steps {
+                git branch 'main', credentialsId 'git_hub' , url : 'https://github.com/taithuyet96/complete-prodcution-e2e-pipeline.git' 
+                // Run build commands
+                // For a Java project using Maven, it might look like this:
+                // sh 'mvn clean package'
+                
+                // Or for a Node.js project:
+                // sh 'npm install'
+                // sh 'npm run build'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Run test commands
+                // For a Java project using Maven:
+                // sh 'mvn test'
+                
+                // For a Node.js project:
+                // sh 'npm test'
+            }
+
+            post {
+                // Define actions to take based on the outcome of the Test stage
+                always {
+                    // Actions to always perform after this stage
+                }
+                success {
+                    // Actions to perform if this stage succeeds
+                }
+                failure {
+                    // Actions to perform if this stage fails
+                    // For example, sending an email notification
+                }
+            }
+        }
+
+        // Additional stages like 'Deploy' can be defined here
+    }
+
+    post {
+        // Define actions to take based on the outcome of the entire Pipeline
+        always {
+            // Actions to always perform after the Pipeline finishes
+        }
+        success {
+            // Actions to perform if the
