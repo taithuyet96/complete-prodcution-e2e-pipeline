@@ -35,13 +35,13 @@ pipeline {
         }
         stage('Buil Application') {
             steps {
-                sh "nvm clean package"
+                sh "mvn clean package"
         
             }
         }
         stage('Test Application') {
             steps {
-                sh "nvm test"
+                sh "mvn test"
                 // Run build commands
                 // For a Java project using Maven, it might look like this:
                 // sh 'mvn clean package'
